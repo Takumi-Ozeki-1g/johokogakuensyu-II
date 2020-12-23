@@ -1,0 +1,99 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2.09�d�l
+\documentclass[twocolumn]{jarticle} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  n�{ �o�[�W����
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm} 
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm} 
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm} 
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm} 
+\setlength{\columnsep}{11mm}
+
+
+%�y�߂������邲�Ƃ�(1.1)(1.2) �c(2.1)(2.2)�Ɛ����ԍ��������Ƃ��z
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} �sT�̐ݒ�
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}   %pLaTeX2e�d�l(�v\documentstyle ->\documentclass)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\twocolumn[
+\noindent
+
+\hspace{1em}
+令和3年 1月 某日(曜日) 情報工学実験II発表資料
+%なにか一個は実験して図は１つのっけることを最低ラインとしてやっていく
+\hfill
+B3 尾關 拓巳
+
+\vspace{2mm}
+
+\hrule
+
+\begin{center}
+{\Large \bf 深層強化学習を用いた取引戦略の学習}
+\end{center}
+
+
+\hrule
+\vspace{3mm}
+]
+
+\section{はじめに}
+近年，機械学習の急速の発展に伴い，深層強化学習による株取引が注目を集めている．
+特に，深層Q学習(Deep $Q$-Network: DQN)の基本的な拡張手法を6種類組み合わせた手法であるRainbowを用いた株取引の研究\cite{test}もなされている．
+
+そこで本実験ではRainbowの基礎であるDQNを用いて．．．
+(簡単なDQNの実験→DQNを用いた株取引→Rainbowの要素技術を用いた株取引)
+を行いデータ解析を行う．
+
+\section{要素技術}
+    \subsection{$Q$-Learning}
+
+    \subsection{Deep $Q$-Network}
+    Deep $Q$-Network(DQN)は，代表的な強化学習手法である$Q$-Learningを用いた深層強化学習である．DQNでは深層強化学習に基づく$Q$-Networkと呼ばれる，強化学習における価値に相当する$Q$値を多層ニューラルネットにより近似する．$Q$-Networkの更新にはreplay memoryと呼ばれる状態の繊維を経験として蓄積したものを利用する．
+
+        \subsubsection{Q-Network}
+        $Q$-Networkとは，$Q$値を求める多層ニューラルネットで，従来の状態と行動を入力として一つのスカラー値を返す方法とは異なり，状態のみを入力とする．出力層においては各行動ごとの$Q$値を持つ．これにより，一度の入力に基づくニューラルネットの出力計算により，全種類の行動の$Q$値が得られるため，行動数によって計算量が増えることがほとんどないという利点を持つ．
+
+        \subsubsection{Experience Replay}
+        多くの場合，深層強化学習アルゴリズムはi.i.d, つまり学習データに相関が無いことが想定されているが，強化学習では問題の性質上時間的に偏ったデータになりがちである．Experience Replayとは，過去の遷移情報を十分な数保存し，そこからランダムサンプリングすることで，擬似的にデータの方よりをなくす工夫である．この経験の蓄積をreplay memoryと呼ぶ．遷移情報は「状態$s_t$で行動$a_t$を選択したところ，報酬$r_t$を獲得し，次の状態が$s_{t+1}$であった」場合，これらを含む4つの組から構成される($s_t$, $a_t$, $r_t$, $s_{t+1}$)を経験した順に記憶し続ける．設定したメモリの上限を超える場合は最も古い経験から破棄する．
+
+        \subsubsection{Q-Networkの更新}
+        十分にreplay memoryにデータを蓄えられたら，replay memoryからランダムサンプリングし，以下の式に従って$Q$-Networkを更新する．
+        \begin{equation}
+            Q_\theta(s_t,a_t)\leftarrow(1-\alpha)Q_\theta(s_t,a_t)+\alpha(r+\gamma\max_{a_{t+1}}Q_\pi(s_{t+1},a_{t+1}))
+        \end{equation}
+        ここで$Q_\theta(s_t,a_t)$はパラメータ$\theta$を持つニューラルネットワークであり，$Q_\pi(s_t,a_t)$は教師信号出力用のニューラルネットで，$Q_\theta(s_t,a_t)$のコピーになっている．$\max_{a_{t+1}}Q_\pi(s_{t+1},a_{t+1})$は遷移先の状態$s_{t+1}$における最大の$Q$値，$\alpha$は学習率$(0\leq \alpha\leq 1)$, $r$は報酬，$\gamma$は割引率$(0\leq \gamma\leq 1)$, tは時刻である．
+
+%\section{従来研究} 従来のもので実験するときはなくてもよい．
+
+\section{提案手法}
+
+\section{数値実験}
+
+\section{結果と考察}
+
+\section{おわりに}
+
+\section{参考文献}
+\begin{thebibliography}{99}
+    \bibitem{test} テスト
+\end{thebibliography}
+
+\end{document}
+
+
